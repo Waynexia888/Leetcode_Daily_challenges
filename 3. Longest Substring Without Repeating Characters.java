@@ -26,7 +26,32 @@ class Solution {
         return result;
     }
 }
-
+////////////follow up///////
 // 本题能否使用char[] map = new char[256]？？
 // 不能，因为我们需要指针i来遍历string s；
+////////////////////////////
+
+// time: O(n); space: O(n), hashmap method as following:
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // maintains a sliding window [start...i]
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        int result = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        int start = 0;
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(s.charAt(i))) {
+                start = Math.max(start, map.get(s.charAt(i)) + 1);
+            }
+            map.put(s.charAt(i), i);
+            result = Math.max(result, i - start + 1);
+        }
+        return result;
+    }
+}
 
